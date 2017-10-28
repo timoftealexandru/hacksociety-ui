@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardText, CardTitle, CardActions, CardMenu, FABButton, Icon } from 'react-mdl'
+import { Button, Card, CardText, CardTitle, CardActions, CardMenu, FABButton } from 'react-mdl'
 import { Operation } from '../Operation'
 import { db } from '../config/constants'
 
@@ -19,7 +19,6 @@ class MotionDetected extends Component {
 		const ref = db.ref("motion")
 		const self = this
 		ref.on("child_changed", function(snapshot) {
-			console.log("snapshot", snapshot.val());
 			self.setState({motion: snapshot.val(), showCard:true})
 		}, function (errorObject) {
 			console.log("The read failed: " + errorObject.code);
@@ -30,7 +29,7 @@ class MotionDetected extends Component {
 		const motion = await this.ops.getMotion()
     
 		this.setState({
-		  motion: motion.motionDetected,
+		  motion: motion.motionDetected === 1,
 		  showCard: motion.motionDetected === 1
 		})
 		this.isMotionDetected()
@@ -41,18 +40,37 @@ class MotionDetected extends Component {
   }
 	
 	showPicture = async () => {
+		if (this.state.showVideo) {
+			alert("Cannot take picture while recording")
+			return
+		}
      this.setState({showPicture: true})
   }
 	showVideo = async () => {
-     this.setState({showVideo: true})
+		fetch('http://10.5.5.46:5000/startVideo').then(res => {
+			console.log(res)
+			
+		})
+		setTimeout(() => {this.setState({showVideo: true})}, 2000)
   }
-  
+	
+  hidePicture = () => {
+	  this.setState({showPicture: false})
+  }
+	
+	hideVideo = () => {
+		fetch('http://10.5.5.46:5000/stopVideo').then(res => {
+			console.log(res)
+		})
+		setTimeout(() => {this.setState({showVideo: false})}, 1000)
+	}
+	
 	renderCard = () => {
 	  return (
       <Card shadow={0} style={{ width: '320px', height: '200px', margin: 'auto' }}>
         <CardTitle expand style={{ color: '#fff', background: 'grey' }}>You have a new visitor at the door</CardTitle>
         <CardText>
-          You have a new visitor at the door! Do you want to see who is out there?
+          Do you want to see who is out there?
         </CardText>
         <CardActions border>
           <Button colored onClick={this.showPicture}>Picture</Button>
@@ -62,18 +80,10 @@ class MotionDetected extends Component {
       </Card>
     )
   }
-	
-  hidePicture = () => {
-	  this.setState({showPicture: false})
-  }
-	
-	hideVideo = () => {
-		this.setState({showVideo: false})
-	}
   
   renderPicture = () => {
 	  return (
-      <Card shadow={0} style={{width: '320px', height: '256px', background: 'url(http://localhost:5000/image) center / cover', margin: 'auto'}}>
+      <Card shadow={0} style={{width: '320px', height: '256px', background: 'url(http://10.5.5.46:5000/image) center / cover', margin: 'auto'}}>
         <CardMenu style={{color: '#fff'}}>
           <FABButton colored mini ripple onClick={this.hidePicture}>
            x
@@ -91,7 +101,7 @@ class MotionDetected extends Component {
             x
           </FABButton>
         </CardMenu>
-        <iframe src="http://10.5.5.46:8081/" width="320px" height="241px">
+        <iframe title="video" src="http://10.5.5.46:8081/" width="320px" height="241px">
           alternative content for browsers which do not support iframe.
         </iframe>
       </Card>
@@ -99,7 +109,6 @@ class MotionDetected extends Component {
 	}
   
   render() {
-	  console.log("mot",this.state.motion)
     return (
       <div>
         {this.state.motion && this.state.showCard
