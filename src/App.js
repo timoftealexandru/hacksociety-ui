@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Home from './components/Home'
 import {Operation} from './Operation'
+import ExampleMDL from './components/MDL'
 
 class App extends Component {
   constructor(props) {
@@ -16,15 +17,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <Home/>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <ExampleMDL/>
     );
   }
 }
