@@ -4,7 +4,7 @@ class Temperature extends Component {
 	render() {
 		return (
 			<div>
-				Tempgfhg
+				Temp
 			</div>
 		)
 	}

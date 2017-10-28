@@ -7,7 +7,6 @@ class MotionDetected extends Component {
 	constructor(props) {
 		super(props)
 		this.state={
-			motion: null,
       showCard: false,
       showPicture: false,
       showVideo: false
@@ -19,7 +18,9 @@ class MotionDetected extends Component {
 		const ref = db.ref("motion")
 		const self = this
 		ref.on("child_changed", function(snapshot) {
-			self.setState({motion: snapshot.val(), showCard:true})
+			if (!self.state.showCard) {
+				self.setState({showCard:true})
+			}
 		}, function (errorObject) {
 			console.log("The read failed: " + errorObject.code);
 		});
@@ -27,9 +28,8 @@ class MotionDetected extends Component {
 	
 	async componentDidMount() {
 		const motion = await this.ops.getMotion()
-    
+    console.log("motion",motion)
 		this.setState({
-		  motion: motion.motionDetected === 1,
 		  showCard: motion.motionDetected === 1
 		})
 		this.isMotionDetected()
@@ -83,7 +83,7 @@ class MotionDetected extends Component {
   
   renderPicture = () => {
 	  return (
-      <Card shadow={0} style={{width: '320px', height: '256px', background: 'url(http://10.5.5.46:5000/image) center / cover', margin: 'auto'}}>
+      <Card shadow={0} style={{width: '320px', height: '256px', background: `url(http://10.5.5.46:5000/image?${new Date().getTime()}) center / cover`, margin: 'auto'}}>
         <CardMenu style={{color: '#fff'}}>
           <FABButton colored mini ripple onClick={this.hidePicture}>
            x
@@ -111,7 +111,7 @@ class MotionDetected extends Component {
   render() {
     return (
       <div>
-        {this.state.motion && this.state.showCard
+        {this.state.showCard
           ?this.renderCard()
           :null
         }
