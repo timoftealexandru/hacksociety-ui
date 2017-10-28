@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Home from './components/Home'
 import {Operation} from './Operation'
 import ExampleMDL from './components/MDL'
+import CheckDoor from './components/CheckDoor'
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class App extends Component {
   }
   render() {
     return (
-        <ExampleMDL/>
+        <div>
+          <CheckDoor/>
+        </div>
     );
   }
 }
