@@ -3,6 +3,7 @@ import { Layout, Tab, HeaderTabs, Header, Content } from 'react-mdl'
 import Temperature from './components/Temperature'
 import MotionDetected from './components/MotionDetected'
 import Tilt from './components/Tilt'
+import GarageDoor from './components/GarageDoor'
 import background from './assets/background.jpeg'
 
 class App extends Component {
@@ -23,6 +24,8 @@ class App extends Component {
         return <Temperature/>
       case 2:
         return <Tilt/>
+      case 3:
+        return <GarageDoor/>
       default:
         return <MotionDetected/>
     }
@@ -39,6 +42,7 @@ class App extends Component {
                   <Tab>Motion</Tab>
                   <Tab>Temperature</Tab>
                   <Tab>Tilt</Tab>
+                  <Tab>GarageDoor</Tab>
                 </HeaderTabs>
               </Header>
               <Content>

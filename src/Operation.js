@@ -15,6 +15,12 @@ export class Operation {
 		return motion.val()
 	}
 	
+	getDistance = async () => {
+		const dist = await db.ref('ultrasonic').once('value')
+		return dist.val().distance
+	}
+	
+	
 	getTemperature = async () => {
 		const temp = await db.ref('temperature').once('value')
 		const range = await db.ref('temperatureRange').once('value')
