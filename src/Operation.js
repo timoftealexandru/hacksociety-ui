@@ -2,7 +2,7 @@ import {db} from './config/constants'
 
 export class Operation {
 	
-	saveTemperatureRange = async (data) => {
+	saveTemperature = async (data) => {
 		return await db.ref().child('temperatureRange')
 			.set({
 				min: data.min,
@@ -16,7 +16,12 @@ export class Operation {
 	}
 	
 	getTemperature = async () => {
-		const motion = await db.ref('temperature').once('value')
-		return motion.val()
+		const temp = await db.ref('temperature').once('value')
+		const range = await db.ref('temperatureRange').once('value')
+		return {
+			min: range.val().min,
+			max: range.val().max,
+			current: temp.val().current
+		}
 	}
 }
