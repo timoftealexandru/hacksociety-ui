@@ -68,6 +68,7 @@ class Temperature extends Component {
 				pattern="-?[0-9]*(\.[0-9]+)?"
 				error="Input is not a number!"
 				label="Min temperature..."
+				autofocus
 				style={{width: '150px'}}
 			  value={this.state.min}
 			  onChange={(e) => this.setState({min: e.target.value})}
@@ -76,7 +77,7 @@ class Temperature extends Component {
 				raised
          accent
          ripple
-         style={{width:'150px', backgroundColor: '#4154B2'}}
+         style={{width:'150px', backgroundColor: '#4154B2', marginLeft:'10px', marginRight:'10px'}}
          onClick={this.handleMinEdit}>
 						{this.state.min}
 				</Button>
@@ -91,14 +92,16 @@ class Temperature extends Component {
 				label="Max temperature..."
 				style={{width: '150px', textAlign: 'center'}}
 			  value={this.state.max}
+			  autofocus
 				onChange={(e) => this.setState({max: e.target.value})}
 			/>
-			:<Button raised
-			         accent
-			         ripple
-			         style={{width:'150px', backgroundColor: '#4154B2'}}
-			         onClick={this.handleMaxEdit}>
-				{this.state.max}
+			:<Button
+				raised
+         accent
+         ripple
+         style={{width:'150px', backgroundColor: '#4154B2', marginLeft:'10px', marginRight:'10px'}}
+         onClick={this.handleMaxEdit}>
+					{this.state.max}
 			</Button>
 	}
 	
@@ -113,12 +116,12 @@ class Temperature extends Component {
 					</div>
 				</div>
 				<div style={{textAlign:'center'}}>
-					{this.state.current}°C
+					There are {this.state.current}°C in the room now
 				</div>
 			</CardText>
 			<CardText>
 				<CardActions>
-					<Chip>
+					<Chip style={{marginLeft:'20px',marginRight:'20px'}}>
 						Heating
 						{
 							(parseInt(this.state.current) < parseInt(this.state.min))
@@ -126,7 +129,7 @@ class Temperature extends Component {
 							:<ChipContact className="mdl-color--red-700 mdl-color-text--white">off</ChipContact>
 						}
 					</Chip>
-					<Chip className="pull-right">
+					<Chip style={{marginLeft:'50px',marginRight:'20px'}}>
 						AC
 						{
 							parseInt(this.state.current) > parseInt(this.state.max)

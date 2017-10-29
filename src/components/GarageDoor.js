@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {ProgressBar,Spinner,CardText, Card} from 'react-mdl'
 import {Operation} from '../Operation'
+import {db} from '../config/constants'
 
 class GarageDoor extends Component {
 	constructor(props) {
@@ -16,6 +17,15 @@ class GarageDoor extends Component {
 			this.setState({
 				distance
 			})
+		})
+		this.setDistance()
+	}
+	
+	setDistance = async () => {
+		const ref = db.ref("ultrasonic")
+		const self = this
+		ref.on("child_changed", function(snapshot) {
+			self.setState({distance: snapshot.val()})
 		})
 	}
 	
