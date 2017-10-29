@@ -38,36 +38,53 @@ class Tilt extends Component {
 		const ref = db.ref("tilt")
 		const self = this
 		ref.on("child_changed", function(snapshot) {
-			self.setState({tilt: snapshot.val()})
+			if (!self.state.tilt) {
+				self.setState({tilt: true})
+			}
 		})
 	}
-	
+	renderButton = () => {
+		return (
+			<div>
+				<Button border colored onClick={this.openDoor}>Open the door</Button>
+				<Button border className="pull-right" colored onClick={this.hideCard}>Ignore</Button>
+			</div>
+		)
+	}
 	renderComponent = () => {
 		return (
 			<Card shadow={0} style={{ width: '360px', height: '300px', margin: 'auto' }}>
-				<CardTitle style={{color: '#fff', height: '250px', width:'360px', background: `url(http://10.5.5.46:5000/image?${new Date().getTime()}) center / cover`, margin: 'auto'}}>
-					
+				<CardTitle style={{color: '#fff', height: '300px', width:'360px', background: `url(http://10.5.5.46:5000/image?${new Date().getTime()}) center / cover`, margin: 'auto'}}>
 				</CardTitle>
 				<CardText>
 					<div style={{textAlign:'center'}}>
 						There is someone at the door who wants to reach you
 					</div>
 				</CardText>
+				{
+					this.state.user!=="False"
+					?this.renderButton()
+					:null
+				}
 			</Card>
 		)
 	}
 	openDoor = () => {
+		this.ops.setDoorOpen(true)
+		this.hideCard()
 		this.setState({
-			doorOpened:true
+			doorOpened:true,tilt:false
 		})
 	}
+	
 	hideCard = () => {
-		this.setState({showCard: false})
+		this.setState({showCard: false,tilt:false})
 	}
+	
 	renderFoundUser = () => {
 		return (
 			<Card shadow={0} style={{ width: '360px', height: '400px', margin: 'auto' }}>
-				<CardTitle style={{color: '#fff', height: '250px', width:'360px', background: `url(http://localhost:5001/base/${this.state.file}?${new Date().getTime()}) center / cover`, margin: 'auto'}}>
+				<CardTitle style={{color: '#fff', height: '300px', width:'360px', background: `url(http://localhost:5001/base/${this.state.file}?${new Date().getTime()}) center / cover`, margin: 'auto'}}>
 					{this.state.name}
 				</CardTitle>
 				<CardText>
@@ -75,21 +92,11 @@ class Tilt extends Component {
 						The person who wants to reach you is {this.state.name}
 					</div>
 				</CardText>
-				{this.renderOptions()}
+				<CardActions>
+					<Button border colored onClick={this.openDoor}>Open the door</Button>
+					<Button border className="pull-right" colored onClick={this.hideCard}>Ignore</Button>
+				</CardActions>
 			</Card>
-		)
-	}
-	
-	renderOptions = () => {
-		return (
-			<CardActions border>
-				{this.state.name==="False" && this.state.file==="False"
-					?<h3>The person is unknown</h3>
-					:null
-				}
-				<Button border colored onClick={this.openDoor}>Open the door</Button>
-				<Button border className="pull-right" colored onClick={this.hideCard}>Ignore</Button>
-			</CardActions>
 		)
 	}
 	
@@ -101,14 +108,17 @@ class Tilt extends Component {
 					{
 						this.state.tilt && this.state.showCard
 							?this.renderComponent()
-							:<h3> There are no notifications</h3>
+							:<h4> There are no notifications</h4>
 					}
 				</CardActions>
 				<CardActions>
 					{
-						this.state.processed && this.state.file !=="False" && this.state.name !=="False"
-						?this.renderFoundUser()
-						:this.renderOptions()
+						this.state.showCard && this.state.processed
+						&& this.state.file !=="False" && this.state.name !=="False" && this.state.tilt
+							?this.renderFoundUser()
+							: this.state.showCard && this.state.file==="False"
+								?<h4>The person is unknown</h4>
+								:null
 					}
 				</CardActions>
 			</div>

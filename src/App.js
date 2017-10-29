@@ -45,7 +45,7 @@ class App extends Component {
                   <Tab>GarageDoor</Tab>
                 </HeaderTabs>
               </Header>
-              <Content>
+              <Content style={{top:'70px'}}>
                 {this.renderComponent()}
               </Content>
             </Layout>

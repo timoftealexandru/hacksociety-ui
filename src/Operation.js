@@ -15,6 +15,13 @@ export class Operation {
 		return motion.val()
 	}
 	
+	setDoorOpen = async (flag) => {
+		return await db.ref().child('door')
+			.set({
+				doorIsOpened:flag,
+			})
+	}
+	
 	getTilt = async () => {
 		const tilt = await db.ref('tilt').once('value')
 		return tilt.val().value

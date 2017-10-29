@@ -108,7 +108,7 @@ class Temperature extends Component {
 	
 	renderSlider = () => {
 		return (
-		<Card shadow={0} style={{ width: '360px', height: '300px', margin: 'auto' }}>
+		<Card shadow={0} style={{ width: '360px', height: '350px', margin: 'auto' }}>
 			<CardTitle expand style={{ color: '#fff', background: `#FC4582 url(${temperature})`}}>Real time temperature</CardTitle>
 			<CardText>
 				<div className="slider" style={{background: 'linear-gradient(to right, blue, green, red)', width:'290px', borderRadius: '25px' }}>
@@ -116,6 +116,8 @@ class Temperature extends Component {
 						<input type="range" min={parseInt(this.state.min-5)} max={parseInt(this.state.max)+5} value={this.state.current} className="slider" id="myRange" style={{ background: "transparent", position: "relative", top: "-2px", left: "-2px" }}/>
 					</div>
 				</div>
+			</CardText>
+			<CardText>
 				<div style={{textAlign:'center', marginRight: '10%'}}>
 					There are {this.state.current}°C in the room now
 				</div>

@@ -114,7 +114,7 @@ class MotionDetected extends Component {
       <div>
         {this.state.showCard
           ?this.renderCard()
-          :null
+          :<h2>No pending notifications</h2>
         }
         {
           this.state.showPicture
