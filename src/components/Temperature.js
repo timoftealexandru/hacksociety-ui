@@ -41,7 +41,7 @@ class Temperature extends Component {
 			<CardText>
 				<div className="slider" style={{background: 'linear-gradient(to right, blue, green, red)' }}>
 					<div id="slidecontainer">
-						<input type="range" min="25" max="30" value={this.state.current} className="slider" id="myRange"/>
+						<input type="range" min="25" max="30" value={this.state.current} className="slider" id="myRange" style={{ background: "transparent", position: "relative", top: "-2px", left: "-2px" }}/>
 					</div>
 				</div>
 				<div style={{textAlign:'center'}}>
