@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import '../assets/index.css';
 import {Operation} from '../Operation'
 import {db} from '../config/constants'
-import {Card, CardTitle, CardText, CardActions, Button, Textfield} from 'react-mdl'
+import {Card, CardTitle, CardText, CardActions, Button, Textfield, Chip, ChipContact} from 'react-mdl'
 
 class Temperature extends Component {
 	constructor(props) {
@@ -19,7 +19,6 @@ class Temperature extends Component {
 	
 	async componentDidMount() {
 		this.ops.getTemperature().then(temp => {
-			console.log(temp)
 			this.setState({
 				current: temp.current,
 				min: temp.min,
@@ -105,17 +104,37 @@ class Temperature extends Component {
 	
 	renderSlider = () => {
 		return (
-		<Card shadow={0} style={{ width: '320px', height: '200px', margin: 'auto' }}>
+		<Card shadow={0} style={{ width: '360px', height: '300px', margin: 'auto' }}>
 			<CardTitle expand style={{ color: '#fff', background: '#FC4582' }}>Real time temperature</CardTitle>
 			<CardText>
 				<div className="slider" style={{background: 'linear-gradient(to right, blue, green, red)' }}>
 					<div id="slidecontainer">
-						<input type="range" min={this.state.min+5} max={this.state.max+5} value={this.state.current} className="slider" id="myRange" style={{ background: "transparent", position: "relative", top: "-2px", left: "-2px" }}/>
+						<input type="range" min={parseInt(this.state.min-5)} max={parseInt(this.state.max)+5} value={this.state.current} className="slider" id="myRange" style={{ background: "transparent", position: "relative", top: "-2px", left: "-2px" }}/>
 					</div>
 				</div>
 				<div style={{textAlign:'center'}}>
 					{this.state.current}°C
 				</div>
+			</CardText>
+			<CardText>
+				<CardActions>
+					<Chip>
+						Heating
+						{
+							(parseInt(this.state.current) < parseInt(this.state.min))
+							?<ChipContact className="mdl-color--teal mdl-color-text--white">on</ChipContact>
+							:<ChipContact className="mdl-color--red-700 mdl-color-text--white">off</ChipContact>
+						}
+					</Chip>
+					<Chip className="pull-right">
+						AC
+						{
+							parseInt(this.state.current) > parseInt(this.state.max)
+							?<ChipContact className="mdl-color--teal mdl-color-text--white">on</ChipContact>
+							:<ChipContact className="mdl-color--red-700 mdl-color-text--white">off</ChipContact>
+						}
+					</Chip>
+				</CardActions>
 			</CardText>
 			<CardActions>
 				{this.renderMin()}
@@ -127,6 +146,7 @@ class Temperature extends Component {
 	}
 	
 	render(){
+		console.log("state",this.state)
 		return (
 			<div>
 				{
