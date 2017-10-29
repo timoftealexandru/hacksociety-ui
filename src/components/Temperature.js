@@ -3,6 +3,7 @@ import '../assets/index.css';
 import {Operation} from '../Operation'
 import {db} from '../config/constants'
 import {Card, CardTitle, CardText, CardActions, Button, Textfield, Chip, ChipContact} from 'react-mdl'
+import temperature from '../assets/temperature.jpeg'
 
 class Temperature extends Component {
 	constructor(props) {
@@ -75,9 +76,9 @@ class Temperature extends Component {
 			/>
 			:<Button
 				raised
-         accent
+         accent 
          ripple
-         style={{width:'150px', backgroundColor: '#4154B2', marginLeft:'10px', marginRight:'10px'}}
+         style={{width:'135px', backgroundColor: '#4154B2', marginLeft:'10px', marginRight:'10px'}}
          onClick={this.handleMinEdit}>
 						{this.state.min}
 				</Button>
@@ -99,7 +100,7 @@ class Temperature extends Component {
 				raised
          accent
          ripple
-         style={{width:'150px', backgroundColor: '#4154B2', marginLeft:'10px', marginRight:'10px'}}
+         style={{width:'135px', backgroundColor: '#4154B2', marginLeft:'10px', marginRight:'10px'}}
          onClick={this.handleMaxEdit}>
 					{this.state.max}
 			</Button>
@@ -108,14 +109,14 @@ class Temperature extends Component {
 	renderSlider = () => {
 		return (
 		<Card shadow={0} style={{ width: '360px', height: '300px', margin: 'auto' }}>
-			<CardTitle expand style={{ color: '#fff', background: '#FC4582' }}>Real time temperature</CardTitle>
+			<CardTitle expand style={{ color: '#fff', background: `#FC4582 url(${temperature})`}}>Real time temperature</CardTitle>
 			<CardText>
-				<div className="slider" style={{background: 'linear-gradient(to right, blue, green, red)' }}>
+				<div className="slider" style={{background: 'linear-gradient(to right, blue, green, red)', width:'290px', borderRadius: '25px' }}>
 					<div id="slidecontainer">
 						<input type="range" min={parseInt(this.state.min-5)} max={parseInt(this.state.max)+5} value={this.state.current} className="slider" id="myRange" style={{ background: "transparent", position: "relative", top: "-2px", left: "-2px" }}/>
 					</div>
 				</div>
-				<div style={{textAlign:'center'}}>
+				<div style={{textAlign:'center', marginRight: '10%'}}>
 					There are {this.state.current}°C in the room now
 				</div>
 			</CardText>
@@ -140,7 +141,7 @@ class Temperature extends Component {
 				</CardActions>
 			</CardText>
 			<CardActions>
-				{this.renderMin()}
+				{this.renderMin()}  
 				{this.renderMax()}
 			</CardActions>
 		</Card>

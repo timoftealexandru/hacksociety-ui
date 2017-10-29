@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Card, CardText, CardTitle, CardActions, CardMenu, FABButton } from 'react-mdl'
 import { Operation } from '../Operation'
 import { db } from '../config/constants'
+import motionDetected from '../assets/motionDetected.jpeg'
 
 class MotionDetected extends Component {
 	constructor(props) {
@@ -67,8 +68,8 @@ class MotionDetected extends Component {
 	
 	renderCard = () => {
 	  return (
-      <Card shadow={0} style={{ width: '320px', height: '200px', margin: 'auto' }}>
-        <CardTitle expand style={{ color: '#fff', background: 'grey' }}>You have a new visitor at the door</CardTitle>
+      <Card shadow={0} style={{ width: '320px', height: '300px', margin: 'auto'}}>
+        <CardTitle expand style={{ color: '#fff', background: `grey url(${motionDetected}) no-repeat` }}>You have a new visitor at the door</CardTitle>
         <CardText>
           Do you want to see who is out there?
         </CardText>
