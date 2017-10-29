@@ -35,7 +35,7 @@ class App extends Component {
           <div >
             <Layout fixedHeader fixedTabs style={{ height:'500px',position: 'relative' }}>
               <Header>
-                <HeaderTabs ripple activeTab={1} onChange={this.handleTab}>
+                <HeaderTabs ripple activeTab={this.state.tabId} onChange={this.handleTab}>
                   <Tab>Motion</Tab>
                   <Tab>Temperature</Tab>
                   <Tab>Tilt</Tab>
