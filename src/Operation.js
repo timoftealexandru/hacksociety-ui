@@ -15,6 +15,11 @@ export class Operation {
 		return motion.val()
 	}
 	
+	getTilt = async () => {
+		const tilt = await db.ref('tilt').once('value')
+		return tilt.val().value
+	}
+	
 	getDistance = async () => {
 		const dist = await db.ref('ultrasonic').once('value')
 		return dist.val().distance

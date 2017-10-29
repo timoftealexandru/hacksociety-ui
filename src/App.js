@@ -36,7 +36,7 @@ class App extends Component {
     return (
         <div  style={{backgroundColor:  "#dce5e3"}}>
           <div>
-            <Layout fixedHeader fixedTabs style={{ height:'500px',position: 'relative'}}>
+            <Layout fixedHeader fixedTabs style={{ height:'1000px',position: 'relative'}}>
               <Header>
                 <HeaderTabs ripple activeTab={this.state.tabId} onChange={this.handleTab}>
                   <Tab>Motion</Tab>
