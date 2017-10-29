@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import img from './assets/background.jpg'
 import { Layout, Tab, HeaderTabs, Header, Content } from 'react-mdl'
 import Temperature from './components/Temperature'
 import MotionDetected from './components/MotionDetected'
+import Tilt from './components/Tilt'
+import background from './assets/background.jpeg'
 
 class App extends Component {
   constructor(props) {
@@ -20,20 +21,24 @@ class App extends Component {
     switch (this.state.tabId) {
       case 1:
         return <Temperature/>
+      case 2:
+        return <Tilt/>
       default:
         return <MotionDetected/>
     }
   }
   
   render() {
+    console.log(background)
     return (
         <div>
           <div >
-            <Layout fixedHeader fixedTabs style={{ height:'500px',position: 'relative', backgroundImage: 'url(./assets/background.jpg) no-repeat' }}>
+            <Layout fixedHeader fixedTabs style={{ height:'500px',position: 'relative' }}>
               <Header>
                 <HeaderTabs ripple activeTab={1} onChange={this.handleTab}>
                   <Tab>Motion</Tab>
                   <Tab>Temperature</Tab>
+                  <Tab>Tilt</Tab>
                 </HeaderTabs>
               </Header>
               <Content>

@@ -3,3 +3,18 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.form {
+  margin: 0 auto;
+  padding: 100px 30px 0;
+}
+
+@media (min-width: 800px) {
+ .form {
+   max-width: 60%;
+ }
+}
+
+.input-range {
+  margin-bottom: 160px;
+}
