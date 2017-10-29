@@ -37,7 +37,7 @@ class MotionDetected extends Component {
 	}
 
 	hideCard = () => {
-		this.setState({showCard:false})
+		this.setState({showCard:false, showPicture: false, showVideo: false})
   }
 	
 	showPicture = async () => {
